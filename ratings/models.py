@@ -45,6 +45,12 @@ class Project(models.Model):
     def get_projects(cls):
         project=cls.objects.all()
         return project
+    
+    @classmethod
+    def search_by_title(cls,tag):
+        search_result=cls.objects.filter(title__icontains=tag)
+        return search_result
+        
         
 class Rating(models.Model):
     editor=models.ForeignKey(User,on_delete=models.CASCADE)
