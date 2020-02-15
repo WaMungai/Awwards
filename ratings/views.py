@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .forms import NewProjectForm,NewRatingForm,NewProfileForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages 
+from .models import Profile,Project,Rating
 # Create your views here.
 
 @login_required(login_url='/accounts/login')
@@ -37,3 +38,14 @@ def search_by_title(request):
         message="You haven't serached for any terms"
         return render(request,'search.html',{"message":message})
 
+@login_required(login_url='/accounts/login')
+def single_project(request,project_id):
+    project_posted=Project.single_project(project_id)
+    imageId=Project.get_image_id(project_id)
+    rating=Rating.get_rating_byproject_id(project_id)
+    
+    design=Rating.design
+    usability=Rating.usability
+    content=Rating.content
+    
+    return render(request,'project.html',{"project":project_posted})
