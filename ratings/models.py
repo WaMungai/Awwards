@@ -50,6 +50,11 @@ class Project(models.Model):
     def search_by_title(cls,tag):
         search_result=cls.objects.filter(title__icontains=tag)
         return search_result
+    
+    @classmethod
+    def user_projects(cls,user_id):
+        project_posted=cls.objects.ger(editor=user_id)
+        return project_posted
         
         
 class Rating(models.Model):

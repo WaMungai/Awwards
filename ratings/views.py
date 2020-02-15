@@ -1,7 +1,9 @@
-from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.shortcuts import render,redirect,get_object_or_404
+from django.http import HttpResponse,Http404,HttpResponseRedirect
 from .forms import NewProjectForm,NewRatingForm,NewProfileForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.core.exceptions import  ObjectDoesNotExist
 from django.contrib import messages 
 from .models import Profile,Project,Rating
 # Create your views here.
@@ -70,7 +72,7 @@ def new_profile(request):
         form= NewProfileForm()
     return render(request,'new_profile.html',{"form":form})
 
-@login_required(login_url=='/accounts/login')
+@login_required(login_url='/accounts/login')
 def display_profile(request,user_id):
     try:
         single_profile=Profile.single_profile(user_id)
