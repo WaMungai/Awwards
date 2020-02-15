@@ -9,6 +9,12 @@ class Profile(models.Model):
     contact=models.CharField(max_length=25)
     editor=models.ForeignKey(User ,on_delete=models.CASCADE)
     
+    def __str__(self):
+        return self.title 
+    
+    def save_profile(self):
+        self.save()
+    
 class Project(models.Model):
     title=models.CharField(max_length=30)
     image=models.ImageField(upload_to='images/',blank=True)
