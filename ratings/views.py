@@ -10,7 +10,6 @@ from .models import Profile,Project,Rating
 def home(request):
     return HttpResponse('Advanced Projects ')
 
-
 @login_required(login_url='/accounts/login')
 def new_project(request):
     current_user = request.user
@@ -25,7 +24,6 @@ def new_project(request):
             form = NewProjectForm()
         return render(request,'new_project.html',{"form":form})
     
-
 @login_required(login_url='/accounts/login')
 def search_by_title(request):
     if'title' in request.GET and request.GET["title"]:
@@ -50,7 +48,6 @@ def single_project(request,project_id):
     
     return render(request,'project.html',{"project":project_posted})
 
-
 @login_required(login_url='/accounts/login')
 def new_profile(request):
     current_user=request.user
@@ -65,3 +62,12 @@ def new_profile(request):
     else:
         form= NewProfileForm()
     return render(request,'new_profile.html',{"form":form})
+
+@login_required(login_url='/accounts/login')
+def add_rating(request):
+    if request.method =='POST':
+        design =request.POST.get("design",None)
+        usability = request.POST.get("usability",None)
+        content=request.POST.get("content",None)
+        
+    return render(request,'rate.html')
