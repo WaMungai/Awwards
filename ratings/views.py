@@ -8,7 +8,14 @@ from .models import Profile,Project,Rating
 
 @login_required(login_url='/accounts/login')
 def home(request):
-    return HttpResponse('Advanced Projects ')
+    all_projects=Project.objects.all()
+    logged_in_user=request.user
+    logged_in_user_projects=Project.objects.filter(editor=logged_in_user)
+    try:
+        profile=Profile.objects.filter(editor=logged_in_user)
+    except Profile.DoesNotExist:
+        profile=None
+    return render('home.html' ,{"projects":logged_in_user_projects,"profile":profile,"allprojects":all_projects})
 
 @login_required(login_url='/accounts/login')
 def new_project(request):
