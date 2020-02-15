@@ -63,6 +63,18 @@ def new_profile(request):
         form= NewProfileForm()
     return render(request,'new_profile.html',{"form":form})
 
+@login_required(login_url=='/accounts/login')
+def display_profile(request,user_id):
+    try:
+        single_profile=Profile.single_profile(user_id)
+        projects_posted=Project.user_projects(user_id)
+        return render(request,'profiledisplay.html',{"profile":single_profile,"projects":projects_posted})
+    except Profile.DoesNotExist:
+        messages.info(request,'The user has not set a profile yet')
+    except Project.DoesNotExist:
+        messages.infor(request,'The user has not posted any project yet')
+        return redirect('home')
+    
 @login_required(login_url='/accounts/login')
 def add_rating(request):
     if request.method =='POST':
