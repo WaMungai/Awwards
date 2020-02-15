@@ -1,0 +1,34 @@
+{%load bootstrap3%}
+{%load static%}
+{{block.super}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Search</title>
+    {{from.media}}
+{%block styles%}
+    {%bootstrap_css%}
+{%endblock%}
+
+</head>
+<body>
+    <div class="col-lg-5 my-auto">
+        {%if titles%}
+        <h2>Found {{titles|length}} of searched term {{message}}</h2>
+        {%else%}
+        <h2>Found 0 project titles for the search term {{message}}</h2>
+        {%endif%}
+        {%if titles%}
+        {%for titles in titles%}
+
+        <h1>Title:{{titles.title}}</h1>
+        <h2>Click photo to view more</h2>
+        <a href="{%url 'project' titles.id%}"><img src="{{titles.image.url}}" alt="image" style="height:300px;width:300px;"></a>
+    </div>
+    {%endfor%}
+    {%endif%}
+</body>
+</html>
