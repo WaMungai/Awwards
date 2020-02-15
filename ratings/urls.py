@@ -8,6 +8,7 @@ urlpatterns=[
     url(r'^new/project$',views.new_project,name='new-project'),
     url(r'^search/',views.search_by_title,name='search_by_title'),
     url(r'^project/(\d+)',views.single_project,name='project'),
+    url(r'^new/profile',views.new_profile,name='new-profile'),
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
