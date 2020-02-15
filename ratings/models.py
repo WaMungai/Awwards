@@ -55,6 +55,11 @@ class Project(models.Model):
     def user_projects(cls,user_id):
         project_posted=cls.objects.ger(editor=user_id)
         return project_posted
+    
+    @classmethod
+    def single_project(cls,project_id):
+        projects_posted=cls.objects.get(id=project_id)
+        return projects_posted
         
         
 class Rating(models.Model):
