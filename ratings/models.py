@@ -18,6 +18,11 @@ class Profile(models.Model):
     def delete_profile(self):
         self.delete()
     
+    @classmethod   
+    def get_profile(cls):
+        profile=cls.objects.all()
+        return profile
+    
 class Project(models.Model):
     title=models.CharField(max_length=30)
     image=models.ImageField(upload_to='images/',blank=True)

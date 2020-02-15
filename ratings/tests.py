@@ -22,3 +22,8 @@ class ProfileTestClass(TestCase):
         self.biography.delete_profile()
         profiles=Profile.objects.all()
         self.assertTrue(len(profiles)==0)
+        
+    def test_get_profile(self):
+        self.biography.save_profile()
+        firstprofile=Profile.get_profile()
+        self.assertTrue(firstprofile is not None)
