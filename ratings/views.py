@@ -6,8 +6,29 @@ from django.contrib.auth.models import User
 from django.core.exceptions import  ObjectDoesNotExist
 from django.contrib import messages 
 from .models import Profile,Project,Rating
-# Create your views here.
+from .serializer import ProfileSerializer,ProjectSerializer
+from rest_framework.response import Response 
+from rest_framework.views import APIView
 
+class ProfileList(APIView):
+    '''
+    Endpoint that returns all profile details. 
+    '''
+    def get(self,request,format=None):
+        all_profile =Profile.objects.all()
+        serializers =ProfileSerializer(all_profile,many=True)
+        return Response(serializers.data)
+    
+class ProjectList(APIView):
+    '''
+    Endpoint that returns all projects posted and their details
+    '''
+    def get(self,request,format=None):
+        all_projects = Project.objects.all()
+        serializers = ProjectSerializer(all_projects,many=True)
+        return Response(serializers.data)
+    
+# Create your views here.
 @login_required(login_url='/accounts/login')
 def home(request):
     all_projects=Project.objects.all()
