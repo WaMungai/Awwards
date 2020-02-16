@@ -60,6 +60,11 @@ class Project(models.Model):
     def single_project(cls,project_id):
         projects_posted=cls.objects.get(id=project_id)
         return projects_posted
+    
+    @classmethod
+    def get_image_id(cls,imageId):
+        image_id=cls.objects.filter(id=imageId)
+        return image_id 
         
         
 class Rating(models.Model):
