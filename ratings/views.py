@@ -38,7 +38,7 @@ def home(request):
         profile=Profile.objects.filter(editor=logged_in_user)
     except Profile.DoesNotExist:
         profile=None
-    return render('home.html',{"project":logged_in_user_projects,"profile":profile,"allprojects":all_projects})
+    return render(request,'home.html',{"project":logged_in_user_projects,"profile":profile,"allprojects":all_projects})
 
 @login_required(login_url='/accounts/login')
 def new_project(request):
