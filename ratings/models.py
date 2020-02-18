@@ -20,6 +20,16 @@ class Profile(models.Model):
         profile=cls.objects.all()
         return profile
     
+    @classmethod
+    def single_profile(cls,user_id):
+        profile=cls.objects.filter(editor=user_id)
+        return profile
+    
+    @classmethod
+    def get_profilepic_id(cls,imageId):
+        image_id=cls.objects.filter(id=imageId)
+        return image_idg
+    
 class Project(models.Model):
     title=models.CharField(max_length=30)
     image=models.ImageField(upload_to='images/',blank=True)
@@ -50,7 +60,7 @@ class Project(models.Model):
     
     @classmethod
     def user_projects(cls,user_id):
-        project_posted=cls.objects.ger(editor=user_id)
+        project_posted=cls.objects.get(editor=user_id)
         return project_posted
     
     @classmethod
