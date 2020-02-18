@@ -9,9 +9,6 @@ class Profile(models.Model):
     contact=models.CharField(max_length=25)
     editor=models.ForeignKey(User ,on_delete=models.CASCADE)
     
-    def __str__(self):
-        return self.title 
-    
     def save_profile(self):
         self.save()
         
@@ -64,8 +61,7 @@ class Project(models.Model):
     @classmethod
     def get_image_id(cls,imageId):
         image_id=cls.objects.filter(id=imageId)
-        return image_id 
-        
+        return image_id
         
 class Rating(models.Model):
     editor=models.ForeignKey(User,on_delete=models.CASCADE)
@@ -73,4 +69,13 @@ class Rating(models.Model):
     design=models.IntegerField()
     usability=models.IntegerField()
     content=models.IntegerField()
+    
+    def __str__(self):
+        return self.design
+    
+    @classmethod
+    def get_rating_byproject_id(cls,project_id):
+        rating=cls.objects.filter(project=project_id)
+        return rating
+        
     
